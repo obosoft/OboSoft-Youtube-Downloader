@@ -33,17 +33,25 @@
             this.radLabel1 = new Telerik.WinControls.UI.RadLabel();
             this.btnDownload = new Telerik.WinControls.UI.RadButton();
             this.radLabel2 = new Telerik.WinControls.UI.RadLabel();
-            this.radTextBox1 = new Telerik.WinControls.UI.RadTextBox();
+            this.txtSavePath = new Telerik.WinControls.UI.RadTextBox();
             this.btnSelectPath = new Telerik.WinControls.UI.RadButton();
             this.radLabel3 = new Telerik.WinControls.UI.RadLabel();
-            this.txtFormat = new System.Windows.Forms.ComboBox();
+            this.txtFormat = new Telerik.WinControls.UI.RadDropDownList();
+            this.fluentDarkTheme1 = new Telerik.WinControls.Themes.FluentDarkTheme();
+            this.btnGetFormatList = new Telerik.WinControls.UI.RadButton();
+            this.txtFileName = new Telerik.WinControls.UI.RadTextBox();
+            this.radLabel4 = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.txtUrl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDownload)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSavePath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSelectPath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFormat)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnGetFormatList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFileName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +61,7 @@
             this.txtUrl.Location = new System.Drawing.Point(47, 3);
             this.txtUrl.MaxLength = 300;
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(445, 24);
+            this.txtUrl.Size = new System.Drawing.Size(468, 24);
             this.txtUrl.TabIndex = 0;
             this.txtUrl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtUrl.ThemeName = "VisualStudio2012Dark";
@@ -71,8 +79,9 @@
             // 
             // btnDownload
             // 
+            this.btnDownload.Enabled = false;
             this.btnDownload.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownload.Location = new System.Drawing.Point(382, 248);
+            this.btnDownload.Location = new System.Drawing.Point(439, 251);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(110, 24);
             this.btnDownload.TabIndex = 2;
@@ -91,33 +100,34 @@
             this.radLabel2.Text = "Download Path";
             this.radLabel2.ThemeName = "VisualStudio2012Dark";
             // 
-            // radTextBox1
+            // txtSavePath
             // 
-            this.radTextBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radTextBox1.Location = new System.Drawing.Point(119, 34);
-            this.radTextBox1.MaxLength = 300;
-            this.radTextBox1.Name = "radTextBox1";
-            this.radTextBox1.Size = new System.Drawing.Size(339, 24);
-            this.radTextBox1.TabIndex = 1;
-            this.radTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.radTextBox1.ThemeName = "VisualStudio2012Dark";
+            this.txtSavePath.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSavePath.Location = new System.Drawing.Point(139, 34);
+            this.txtSavePath.MaxLength = 300;
+            this.txtSavePath.Name = "txtSavePath";
+            this.txtSavePath.Size = new System.Drawing.Size(376, 24);
+            this.txtSavePath.TabIndex = 1;
+            this.txtSavePath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSavePath.ThemeName = "VisualStudio2012Dark";
             // 
             // btnSelectPath
             // 
             this.btnSelectPath.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelectPath.Location = new System.Drawing.Point(464, 34);
+            this.btnSelectPath.Location = new System.Drawing.Point(521, 35);
             this.btnSelectPath.Name = "btnSelectPath";
             this.btnSelectPath.Size = new System.Drawing.Size(28, 24);
             this.btnSelectPath.TabIndex = 4;
             this.btnSelectPath.Text = "...";
             this.btnSelectPath.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
             this.btnSelectPath.ThemeName = "VisualStudio2012Dark";
+            this.btnSelectPath.Click += new System.EventHandler(this.btnSelectPath_Click);
             // 
             // radLabel3
             // 
             this.radLabel3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radLabel3.ForeColor = System.Drawing.Color.White;
-            this.radLabel3.Location = new System.Drawing.Point(2, 64);
+            this.radLabel3.Location = new System.Drawing.Point(2, 92);
             this.radLabel3.Name = "radLabel3";
             this.radLabel3.Size = new System.Drawing.Size(113, 25);
             this.radLabel3.TabIndex = 5;
@@ -126,32 +136,63 @@
             // 
             // txtFormat
             // 
-            this.txtFormat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(70)))));
-            this.txtFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.txtFormat.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFormat.ForeColor = System.Drawing.SystemColors.Window;
-            this.txtFormat.FormattingEnabled = true;
-            this.txtFormat.Items.AddRange(new object[] {
-            "source",
-            "mp4",
-            "flv",
-            "mp3",
-            "m4a"});
-            this.txtFormat.Location = new System.Drawing.Point(119, 65);
+            this.txtFormat.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFormat.Location = new System.Drawing.Point(139, 93);
             this.txtFormat.Name = "txtFormat";
-            this.txtFormat.Size = new System.Drawing.Size(130, 25);
-            this.txtFormat.TabIndex = 6;
-            this.txtFormat.Text = "source";
+            this.txtFormat.Size = new System.Drawing.Size(410, 24);
+            this.txtFormat.TabIndex = 7;
+            this.txtFormat.ThemeName = "FluentDark";
+            this.txtFormat.SelectedIndexChanged += new Telerik.WinControls.UI.Data.PositionChangedEventHandler(this.txtFormat_SelectedIndexChanged);
+            // 
+            // btnGetFormatList
+            // 
+            this.btnGetFormatList.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetFormatList.Location = new System.Drawing.Point(521, 3);
+            this.btnGetFormatList.Name = "btnGetFormatList";
+            this.btnGetFormatList.Size = new System.Drawing.Size(28, 24);
+            this.btnGetFormatList.TabIndex = 8;
+            this.btnGetFormatList.Text = "->";
+            this.btnGetFormatList.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
+            this.btnGetFormatList.ThemeName = "VisualStudio2012Dark";
+            this.btnGetFormatList.Click += new System.EventHandler(this.btnGetFormatList_Click);
+            // 
+            // txtFileName
+            // 
+            this.txtFileName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFileName.Location = new System.Drawing.Point(139, 64);
+            this.txtFileName.MaxLength = 300;
+            this.txtFileName.Name = "txtFileName";
+            this.txtFileName.Size = new System.Drawing.Size(410, 24);
+            this.txtFileName.TabIndex = 4;
+            this.txtFileName.Text = "Leave blank for default";
+            this.txtFileName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFileName.ThemeName = "VisualStudio2012Dark";
+            this.txtFileName.TextChanged += new System.EventHandler(this.txtFileName_TextChanged);
+            this.txtFileName.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtFileName_MouseClick);
+            // 
+            // radLabel4
+            // 
+            this.radLabel4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radLabel4.ForeColor = System.Drawing.Color.White;
+            this.radLabel4.Location = new System.Drawing.Point(2, 63);
+            this.radLabel4.Name = "radLabel4";
+            this.radLabel4.Size = new System.Drawing.Size(131, 25);
+            this.radLabel4.TabIndex = 5;
+            this.radLabel4.Text = "Output file name";
+            this.radLabel4.ThemeName = "VisualStudio2012Dark";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 275);
+            this.ClientSize = new System.Drawing.Size(549, 275);
+            this.Controls.Add(this.txtFileName);
+            this.Controls.Add(this.radLabel4);
+            this.Controls.Add(this.btnGetFormatList);
             this.Controls.Add(this.txtFormat);
             this.Controls.Add(this.radLabel3);
             this.Controls.Add(this.btnSelectPath);
-            this.Controls.Add(this.radTextBox1);
+            this.Controls.Add(this.txtSavePath);
             this.Controls.Add(this.radLabel2);
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.radLabel1);
@@ -164,13 +205,18 @@
             this.RootElement.ApplyShapeToControl = true;
             this.Text = "OboSoft Youtube Downloader";
             this.ThemeName = "VisualStudio2012Dark";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtUrl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDownload)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radTextBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSavePath)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSelectPath)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFormat)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnGetFormatList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFileName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radLabel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -183,10 +229,14 @@
         private Telerik.WinControls.UI.RadTextBox txtUrl;
         private Telerik.WinControls.UI.RadLabel radLabel1;
         private Telerik.WinControls.UI.RadButton btnDownload;
-        private Telerik.WinControls.UI.RadTextBox radTextBox1;
+        private Telerik.WinControls.UI.RadTextBox txtSavePath;
         private Telerik.WinControls.UI.RadLabel radLabel2;
         private Telerik.WinControls.UI.RadButton btnSelectPath;
         private Telerik.WinControls.UI.RadLabel radLabel3;
-        private System.Windows.Forms.ComboBox txtFormat;
+        private Telerik.WinControls.UI.RadDropDownList txtFormat;
+        private Telerik.WinControls.Themes.FluentDarkTheme fluentDarkTheme1;
+        private Telerik.WinControls.UI.RadButton btnGetFormatList;
+        private Telerik.WinControls.UI.RadTextBox txtFileName;
+        private Telerik.WinControls.UI.RadLabel radLabel4;
     }
 }

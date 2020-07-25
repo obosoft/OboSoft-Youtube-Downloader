@@ -16,3 +16,4 @@ D:\Documenti\Programmazione\CSharp\OboSoft-Youtube-Downloader\OboSoft Youtube Do
 D:\Documenti\Programmazione\CSharp\OboSoft-Youtube-Downloader\OboSoft Youtube Downloader\OboSoft Youtube Downloader\obj\x86\Debug\OboSoft_Youtube_Downloader.csproj.CopyComplete
 D:\Documenti\Programmazione\CSharp\OboSoft-Youtube-Downloader\OboSoft Youtube Downloader\OboSoft Youtube Downloader\obj\x86\Debug\OboSoft_Youtube_Downloader.exe
 D:\Documenti\Programmazione\CSharp\OboSoft-Youtube-Downloader\OboSoft Youtube Downloader\OboSoft Youtube Downloader\obj\x86\Debug\OboSoft_Youtube_Downloader.pdb
+D:\Documenti\Programmazione\CSharp\OboSoft-Youtube-Downloader\OboSoft Youtube Downloader\OboSoft Youtube Downloader\bin\Debug\Telerik.WinControls.Themes.FluentDark.dll
