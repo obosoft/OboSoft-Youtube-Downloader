@@ -1,5 +1,6 @@
 ﻿using Microsoft.SqlServer.Server;
 using OboSoft_Youtube_Downloader.FFMPEG;
+using OboSoft_Youtube_Downloader.GUI_Interaction;
 using OboSoft_Youtube_Downloader.Youtube_DL;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,9 @@ namespace OboSoft_Youtube_Downloader
     {
 
         VideoInfo videoinfo = new VideoInfo();
+        VideoDownloader videoDownloader = new VideoDownloader();
         AudioConversion audioConversion = new AudioConversion();
-
+        PathSelector pathSelector = new PathSelector();
 
         public string video_format;
         public string original_video_extension;
@@ -30,13 +32,17 @@ namespace OboSoft_Youtube_Downloader
         {
             InitializeComponent();
         }
-        
-        
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void radButton1_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtUrl.Text) && !string.IsNullOrWhiteSpace(txtUrl.Text))
             {
-                downloadVideo(txtUrl.Text, video_format);
+                videoDownloader.StartDownload()
                 
             } else
             {
@@ -44,80 +50,9 @@ namespace OboSoft_Youtube_Downloader
             }
         }
 
-
-        public string getOutputFileName()
-        {
-            return "%(title)s.%(ext)s";
-        }
-
-        public void downloadVideo(string url, string format)
-        {
-            if(!string.IsNullOrEmpty(format) || !string.IsNullOrWhiteSpace(format))
-            {
-                if (!string.IsNullOrEmpty(txtSavePath.Text) || !string.IsNullOrWhiteSpace(txtSavePath.Text))
-                {
-                    Process process = new Process();
-                    ProcessStartInfo startInfo = new ProcessStartInfo();
-                    process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    process.StartInfo.FileName = "cmd.exe";
-                    process.StartInfo.Arguments = "/C youtube-dl.exe --format " + format + " -o " + txtSavePath.Text + "/" + getOutputFileName() + " " + url;
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.RedirectStandardOutput = true;
-                    process.StartInfo.CreateNoWindow = true;
-                    process.Start();
-                    StreamReader sesso = process.StandardOutput;
-                    Console.WriteLine(sesso.ReadToEnd());
-                    sesso.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Please select the save path first.", "SavePath not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            } else
-            {
-                if (!string.IsNullOrEmpty(txtSavePath.Text) || !string.IsNullOrWhiteSpace(txtSavePath.Text))
-                {
-                    Process process = new Process();
-                    ProcessStartInfo startInfo = new ProcessStartInfo();
-                    process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    process.StartInfo.FileName = "cmd.exe";
-                    process.StartInfo.Arguments = "/C youtube-dl.exe -o " + txtSavePath.Text + "/" + getOutputFileName() + " " + url;
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.RedirectStandardOutput = true;
-                    process.StartInfo.CreateNoWindow = true;
-                    process.Start();
-                    StreamReader sesso = process.StandardOutput;
-                    Console.WriteLine(sesso.ReadToEnd());
-                    sesso.Close();
-                    if (listFormatList.SelectedItem.Text.Equals("MP3 Audio File"))
-                    {
-                        audioConversion.convertToMp3(txtSavePath.Text + "/" + txtFileName.Text, videoinfo.getVideoExtension(txtUrl.Text));
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Please select the save path first.", "SavePath not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnSelectPath_Click(object sender, EventArgs e)
         {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    txtSavePath.Text = fbd.SelectedPath.ToString();
-                }
-            }
+            
         }
 
         private void btnGetFormatList_Click(object sender, EventArgs e)
