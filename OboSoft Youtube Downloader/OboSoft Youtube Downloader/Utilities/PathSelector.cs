@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace OboSoft_Youtube_Downloader.GUI_Interaction
 {
-    class PathSelector
+    internal class PathSelector
     {
         public string selectPath()
         {

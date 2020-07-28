@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
 
 namespace OboSoft_Youtube_Downloader.FFMPEG
 {
-    class AudioConversion
+    internal class AudioConversion
     {
-
         public void convertToMp3(string filepath, string ext)
         {
             Process process = new Process();
@@ -23,10 +18,8 @@ namespace OboSoft_Youtube_Downloader.FFMPEG
             process.Start();
             StreamReader readoutput = process.StandardOutput;
             string video_title;
-            while((video_title = readoutput.ReadLine()) != null)
+            while ((video_title = readoutput.ReadLine()) != null)
                 Console.WriteLine("[FFMPEG] " + video_title);
-
         }
-
     }
 }

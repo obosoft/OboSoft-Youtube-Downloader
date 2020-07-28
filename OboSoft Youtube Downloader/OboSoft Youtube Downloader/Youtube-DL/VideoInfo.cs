@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
 
 namespace OboSoft_Youtube_Downloader.Youtube_DL
 {
-    class VideoInfo
+    internal class VideoInfo
     {
         public string getVideoTitle(string url)
         {
@@ -41,9 +37,18 @@ namespace OboSoft_Youtube_Downloader.Youtube_DL
             string video_extension;
             string video_title = getVideoTitle(url);
             string video_id = getVideoID(url);
-            video_extension = readoutput.ReadLine();
-            video_extension = video_extension.Replace(video_title, "");
-            video_extension = video_extension.Replace("-" + video_id, "");
+            video_extension = readoutput.ReadToEnd();
+            readoutput.Close();
+            try
+            {
+                video_extension = video_extension.Replace(video_title, "");
+                video_extension = video_extension.Replace("-" + video_id, "");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[ERROR] Error occourred while getting Video Extension: " + ex.Message);
+            }
+
             Console.WriteLine("Video Extension: " + video_extension);
             return video_extension;
         }
@@ -64,6 +69,5 @@ namespace OboSoft_Youtube_Downloader.Youtube_DL
             Console.WriteLine("Video ID: " + video_id);
             return video_id;
         }
-
     }
 }

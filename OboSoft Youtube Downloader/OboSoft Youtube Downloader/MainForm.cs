@@ -1,29 +1,19 @@
-﻿using Microsoft.SqlServer.Server;
-using OboSoft_Youtube_Downloader.FFMPEG;
+﻿using OboSoft_Youtube_Downloader.FFMPEG;
 using OboSoft_Youtube_Downloader.GUI_Interaction;
 using OboSoft_Youtube_Downloader.Youtube_DL;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Telerik.WinControls;
-using Telerik.WinControls.UI;
 
 namespace OboSoft_Youtube_Downloader
 {
     public partial class MainForm : Telerik.WinControls.UI.RadForm
     {
-
-        VideoInfo videoinfo = new VideoInfo();
-        VideoDownloader videoDownloader = new VideoDownloader();
-        AudioConversion audioConversion = new AudioConversion();
-        PathSelector pathSelector = new PathSelector();
+        private VideoInfo videoinfo = new VideoInfo();
+        private VideoDownloader videoDownloader = new VideoDownloader();
+        private AudioConversion audioConversion = new AudioConversion();
+        private PathSelector pathSelector = new PathSelector();
 
         public string video_format;
         public string original_video_extension;
@@ -35,16 +25,15 @@ namespace OboSoft_Youtube_Downloader
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void radButton1_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtUrl.Text) && !string.IsNullOrWhiteSpace(txtUrl.Text))
             {
-                videoDownloader.StartDownload()
-                
-            } else
+                videoDownloader.StartDownload(txtUrl.Text, txtSavePath.Text, video_format);
+            }
+            else
             {
                 MessageBox.Show("Please enter the URL before downloading.", "URL not found", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -52,14 +41,21 @@ namespace OboSoft_Youtube_Downloader
 
         private void btnSelectPath_Click(object sender, EventArgs e)
         {
-            
+            txtSavePath.Text = pathSelector.selectPath();
         }
 
         private void btnGetFormatList_Click(object sender, EventArgs e)
         {
-            getFormatList(txtUrl.Text);
-            txtFileName.Text = videoinfo.getVideoTitle(txtUrl.Text);
-            original_video_extension = videoinfo.getVideoExtension(txtUrl.Text);
+            if (txtUrl.Text.Contains("youtube.com") || txtUrl.Text.Contains("youtu.be"))
+            {
+                getFormatList(txtUrl.Text);
+                txtFileName.Text = videoinfo.getVideoTitle(txtUrl.Text);
+                original_video_extension = videoinfo.getVideoExtension(txtUrl.Text);
+            }
+            else
+            {
+                MessageBox.Show("Invalid URL. Please make sure you have entered a valid youtube url.");
+            }
         }
 
         public void getFormatList(string url)
@@ -71,10 +67,11 @@ namespace OboSoft_Youtube_Downloader
             try
             {
                 Uri uri = new Uri(url);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Error while converting URL (Invalid URL) | " + ex.Message);
-            } 
+            }
             process.StartInfo.Arguments = "/C youtube-dl --list-format " + url;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
@@ -91,11 +88,11 @@ namespace OboSoft_Youtube_Downloader
                     listFormatList.Items.Add(ln + "\r\n");
                     Console.WriteLine(ln + "\r\n");
                 }
-                if(currentLn == 1)
+                if (currentLn == 1)
                 {
                     listFormatList.Items.Add("Original Format");
                 }
-                if(currentLn == 2)
+                if (currentLn == 2)
                 {
                     listFormatList.Items.Add("MP3 Audio File");
                 }
@@ -107,7 +104,7 @@ namespace OboSoft_Youtube_Downloader
 
         private void txtFileName_MouseClick(object sender, MouseEventArgs e)
         {
-            if(txtFileName.Text.Equals("Leave blank for default"))
+            if (txtFileName.Text.Equals("Leave blank for default"))
             {
                 txtFileName.Clear();
             }
@@ -115,8 +112,6 @@ namespace OboSoft_Youtube_Downloader
 
         private void txtFileName_TextChanged(object sender, EventArgs e)
         {
-           
         }
-
     }
 }
