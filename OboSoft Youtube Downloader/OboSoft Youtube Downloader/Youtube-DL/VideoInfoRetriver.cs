@@ -4,9 +4,9 @@ using System.IO;
 
 namespace OboSoft_Youtube_Downloader.Youtube_DL
 {
-    internal class VideoInfo
+    internal class VideoInfoRetriver
     {
-        public string getVideoTitle(string url)
+        private string retriveVideoTitle(string url)
         {
             Process process = new Process();
             process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -19,11 +19,11 @@ namespace OboSoft_Youtube_Downloader.Youtube_DL
             StreamReader readoutput = process.StandardOutput;
             string video_title;
             video_title = readoutput.ReadLine();
-            Console.WriteLine("Video title: " + video_title);
+            //Console.WriteLine("Video title: " + video_title);
             return video_title;
         }
 
-        public string getVideoExtension(string url)
+        public string[] retriveVideoInfo(string url)
         {
             Process process = new Process();
             process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -35,8 +35,8 @@ namespace OboSoft_Youtube_Downloader.Youtube_DL
             process.Start();
             StreamReader readoutput = process.StandardOutput;
             string video_extension;
-            string video_title = getVideoTitle(url);
-            string video_id = getVideoID(url);
+            string video_title = retriveVideoTitle(url);
+            string video_id = retriveVideoID(url);
             video_extension = readoutput.ReadToEnd();
             readoutput.Close();
             try
@@ -50,10 +50,12 @@ namespace OboSoft_Youtube_Downloader.Youtube_DL
             }
 
             Console.WriteLine("Video Extension: " + video_extension);
-            return video_extension;
+            string total = video_title + "£" + video_extension + "£" + video_id + "£" + url;
+            string[] _videoInfo = total.Split(char.Parse("£"));
+            return _videoInfo;
         }
 
-        public string getVideoID(string url)
+        private string retriveVideoID(string url)
         {
             Process process = new Process();
             process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;

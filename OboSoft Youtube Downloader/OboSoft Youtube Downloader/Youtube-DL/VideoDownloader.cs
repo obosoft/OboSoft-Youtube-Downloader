@@ -7,24 +7,27 @@ namespace OboSoft_Youtube_Downloader.Youtube_DL
     internal class VideoDownloader
     {
         private ProcessManager _pm = new ProcessManager();
-        private VideoInfo videoInfo = new VideoInfo();
+        private VideoInfoRetriver videoInfoRetriver = new VideoInfoRetriver();
 
-        public void StartDownload(string url, string path, string format)
+        private string[] _videoInfo;
+
+        private string _videoTitle;
+        private string _videoID;
+
+        public void StartDownload(string url, string path, string format, string _videoExtension)
         {
-            Console.WriteLine("[CMD] " + "youtube-dl --output \"" +
-                path + "/" +
-                videoInfo.getVideoTitle(url) +
-                videoInfo.getVideoExtension(url) +
-                "\" --format " + format +
-                " " + url);
+            _videoInfo = videoInfoRetriver.retriveVideoInfo(url);
+            _videoTitle = _videoInfo[0];
+            _videoID = _videoInfo[2];
 
-            _pm.executeCmd("youtube-dl --output " +
-                path + "/" +
-                videoInfo.getVideoTitle(url) +
-                videoInfo.getVideoExtension(url) +
-                " --format " + format +
-                " " + url, false);
-            MessageBox.Show("Download completed.");
+            _videoExtension = _videoExtension.Replace(" ", "");
+            format = format.Replace(" ", "");
+
+            string _videoFileName = @" """ + path + @"\" + _videoTitle + "." + _videoExtension + @"""";
+
+            Console.WriteLine("vfm: " + _videoFileName);
+
+            _pm.executeCmd("youtube-dl -o" + _videoFileName + " -f " + format + @" """ + url + @"""", true);
         }
 
         public void StartDownloadAudioOnly(string url, string path, string audio_format)
