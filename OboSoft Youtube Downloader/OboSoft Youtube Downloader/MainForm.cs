@@ -24,6 +24,7 @@ namespace OboSoft_Youtube_Downloader
         private string _videoUrl;
         private string _videoSavePath;
 
+        Random rnd = new Random();
 
         private string _selected_video_format;
 
@@ -48,9 +49,7 @@ namespace OboSoft_Youtube_Downloader
                 _videoExtension = sl[1];
                 Console.WriteLine("Selected format: " + _selected_video_format);
                 //_selected_video_format = _selected_video_format.Replace(" ", "");
-                lblDownloading.Visible = true;
                 videoDownloader.StartDownload(_videoUrl, _videoSavePath, _selected_video_format, _videoExtension);
-                lblDownloading.Visible = false;
             }
             else
             {
@@ -69,12 +68,28 @@ namespace OboSoft_Youtube_Downloader
             if (txtUrl.Text.Contains("youtube.com") || txtUrl.Text.Contains("youtu.be"))
             {
                 getFormatList(txtUrl.Text);
+                lvFormatList.SelectedIndex = 0;
                 lblVideoTitle.Text = _videoTitle;
             }
             else
             {
                 MessageBox.Show("Invalid URL. Please make sure you have entered a valid youtube url.");
             }
+        }
+
+        public void lvAddItem(string e1, string e2, string e3, string e4)
+        {
+            ListViewDataItem item = new ListViewDataItem();
+            item.TextAlignment = ContentAlignment.MiddleCenter;
+            item.Font = new Font("Consolas", 10, FontStyle.Regular);
+            //lvFormatList.Items.Add(args[0]);
+            item.Tag = e1;
+            item.Tag = item.Tag + "£" + e2;
+            item.SubItems.Add(e1); // FORMAT ID
+            item.SubItems.Add(e2); // FORMAT TYPE
+            item.SubItems.Add((e3).Replace(" ", "")); // FORMAT RES
+            item.SubItems.Add(e4); // FORMAT TAG
+            lvFormatList.Items.Add(item);
         }
 
         public void getFormatList(string url)
@@ -99,7 +114,6 @@ namespace OboSoft_Youtube_Downloader
             StreamReader readoutput = process.StandardOutput;
             string ln;
             int currentLn = 0;
-            //int currentItem = 0;
             while ((ln = readoutput.ReadLine()) != null)
             {
                 currentLn++;
@@ -107,55 +121,17 @@ namespace OboSoft_Youtube_Downloader
                 {
                     if (!ln.Contains("[info]") || !ln.Contains("resolution"))
                     {
-                        //if(ln.Contains("audio only"))
-                        //string fId = ln.Substring(0, 3);
-                        //Console.WriteLine("FormatID: " + fId);
-                        //string f = ln.Substring(4, 17);
-                        //f = f.Replace(" ", "");
-                        //Console.WriteLine("Format: " + f);
-
-                        //Console.WriteLine("Length = " + ln.Length);
-                        //Console.WriteLine(ln.Substring(17, (ln.Length - 17)));
-
-                        //string dex = ln.Substring(18, (ln.Length - 1));
-                        //dex = dex.Replace("  ", "");
-
-                        //lvFormatList.Items.Add()
-                        ListViewDataItem item = new ListViewDataItem();
-                        item.TextAlignment = ContentAlignment.MiddleCenter;
-                        item.Font = new Font("Consolas", 10, FontStyle.Regular);
-                        //lvFormatList.Items.Add(args[0]);
-                        item.Tag = ln.Substring(0, 3);
-                        item.Tag = item.Tag + "£" + ln.Substring(13, 4);
-                        item.SubItems.Add(ln.Substring(0, 3)); // FORMAT ID
-                        item.SubItems.Add(ln.Substring(13, 4)); // FORMAT TYPE
-                        item.SubItems.Add((ln.Substring(35, 5)).Replace(" ", "")); // FORMAT RES
-                        item.SubItems.Add(ln.Substring(41, (ln.Length-41))); // FORMAT TAG
-                        lvFormatList.Items.Add(item);
-
-                        //listFormatList.Items.Add("[" + ln.Substring(0, 3) + "] - " + ln.Substring(13, 4).Replace("  ", "").ToUpper() + " file - " /**+ dex*/ + "\r\n");
+                        lvAddItem(ln.Substring(0, 3), ln.Substring(13, 4), ln.Substring(35, 5), ln.Substring(41, (ln.Length - 41)));
                         Console.WriteLine(ln + "\r\n"); ;
-                        //currentItem += 1;
                     }
                 }
                 else if (currentLn == 1)
                 {
-                    ListViewDataItem item = new ListViewDataItem();
-                    item.TextAlignment = ContentAlignment.MiddleCenter;
-                    item.Font = new Font("Consolas", 10, FontStyle.Regular);
-                    //lvFormatList.Items.Add(args[0]);
-                    item.Tag = "best";
-                    item.Tag = item.Tag + "£" + "mp4";
-                    item.SubItems.Add("AUTO"); // FORMAT ID
-                    item.SubItems.Add("ORIGINAL"); // FORMAT TYPE
-                    item.SubItems.Add("BEST"); // FORMAT RES
-                    item.SubItems.Add("The best video quality (ID 22)"); // FORMAT TAG
-                    lvFormatList.Items.Add(item);
+                    lvAddItem("best", "original", "best", "The best video quality");
                 }
                 else if (currentLn == 2)
                 {
-                    listFormatList.Items.Add("020 - MP3 Audio File");
-                    listFormatList.Items.Add("021 - WAV Audio File");
+                    lvAddItem("Audio Only", "MP3", "AUDIO", "Audio only, MP3, 168k");
                 }
             }
             //string output = process.StandardOutput.ReadToEnd();
@@ -168,25 +144,10 @@ namespace OboSoft_Youtube_Downloader
             _videoUrl = _videoInfo[3];
         }
 
-        private void txtFileName_MouseClick(object sender, MouseEventArgs e)
-        {
-            
-        }
-
-        private void txtFileName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void listFormatList_SelectedIndexChanged(object sender, Telerik.WinControls.UI.Data.PositionChangedEventArgs e)
         {
             _selected_video_format = listFormatList.SelectedItem.ToString().Substring(0, 3);
             Console.WriteLine("Video Format code: " + _selected_video_format);
-        }
-
-        private void radListView1_SelectedItemChanged(object sender, EventArgs e)
-        {
-            
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

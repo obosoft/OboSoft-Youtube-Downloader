@@ -45,7 +45,6 @@
             this.listFormatList = new Telerik.WinControls.UI.RadListControl();
             this.lvFormatList = new Telerik.WinControls.UI.RadListView();
             this.lblVideoTitle = new System.Windows.Forms.LinkLabel();
-            this.lblDownloading = new Telerik.WinControls.UI.RadLabel();
             ((System.ComponentModel.ISupportInitialize)(this.txtUrl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDownload)).BeginInit();
@@ -55,7 +54,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnGetFormatList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listFormatList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvFormatList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblDownloading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,9 +84,9 @@
             // 
             this.btnDownload.Enabled = false;
             this.btnDownload.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownload.Location = new System.Drawing.Point(583, 350);
+            this.btnDownload.Location = new System.Drawing.Point(2, 350);
             this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(110, 24);
+            this.btnDownload.Size = new System.Drawing.Size(691, 24);
             this.btnDownload.TabIndex = 2;
             this.btnDownload.Text = "Download";
             this.btnDownload.ThemeName = "VisualStudio2012Dark";
@@ -184,39 +182,25 @@
             this.lvFormatList.TabIndex = 11;
             this.lvFormatList.ThemeName = "VisualStudio2012Dark";
             this.lvFormatList.ViewType = Telerik.WinControls.UI.ListViewType.DetailsView;
-            this.lvFormatList.SelectedItemChanged += new System.EventHandler(this.radListView1_SelectedItemChanged);
             // 
             // lblVideoTitle
             // 
             this.lblVideoTitle.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVideoTitle.LinkColor = System.Drawing.Color.White;
-            this.lblVideoTitle.Location = new System.Drawing.Point(2, 63);
+            this.lblVideoTitle.Location = new System.Drawing.Point(2, 61);
             this.lblVideoTitle.Name = "lblVideoTitle";
-            this.lblVideoTitle.Size = new System.Drawing.Size(691, 28);
+            this.lblVideoTitle.Size = new System.Drawing.Size(691, 30);
             this.lblVideoTitle.TabIndex = 12;
             this.lblVideoTitle.TabStop = true;
             this.lblVideoTitle.Text = "No selected video";
             this.lblVideoTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblVideoTitle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // lblDownloading
-            // 
-            this.lblDownloading.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDownloading.ForeColor = System.Drawing.Color.White;
-            this.lblDownloading.Location = new System.Drawing.Point(2, 349);
-            this.lblDownloading.Name = "lblDownloading";
-            this.lblDownloading.Size = new System.Drawing.Size(160, 25);
-            this.lblDownloading.TabIndex = 13;
-            this.lblDownloading.Text = "Downloading video...";
-            this.lblDownloading.ThemeName = "VisualStudio2012Dark";
-            this.lblDownloading.Visible = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 377);
-            this.Controls.Add(this.lblDownloading);
             this.Controls.Add(this.lblVideoTitle);
             this.Controls.Add(this.lvFormatList);
             this.Controls.Add(this.listFormatList);
@@ -245,7 +229,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnGetFormatList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listFormatList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvFormatList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lblDownloading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -266,6 +249,5 @@
         private Telerik.WinControls.UI.RadListControl listFormatList;
         private Telerik.WinControls.UI.RadListView lvFormatList;
         private System.Windows.Forms.LinkLabel lblVideoTitle;
-        private Telerik.WinControls.UI.RadLabel lblDownloading;
     }
 }
